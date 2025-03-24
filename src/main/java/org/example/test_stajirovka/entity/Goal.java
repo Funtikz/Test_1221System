@@ -1,5 +1,8 @@
 package org.example.test_stajirovka.entity;
 
+import lombok.Getter;
+
+@Getter
 public enum Goal {
     WEIGHT_LOSS("Похудение"),
     MAINTENANCE("Поддержание"),
@@ -8,8 +11,5 @@ public enum Goal {
 
     Goal(String description) {
         this.description = description;
-    }
-    public String getDescription() {
-        return description;
     }
 }
