@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.test_stajirovka.entity.NutrientType;
+import org.example.test_stajirovka.entity.enums.NutrientType;
 
 @Getter
 @Setter

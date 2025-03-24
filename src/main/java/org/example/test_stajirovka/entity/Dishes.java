@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.test_stajirovka.entity.enums.NutrientType;
 
 @Table(name = "dishes")
 @Entity

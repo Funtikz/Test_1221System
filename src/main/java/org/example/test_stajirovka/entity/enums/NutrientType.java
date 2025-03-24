@@ -1,4 +1,4 @@
-package org.example.test_stajirovka.entity;
+package org.example.test_stajirovka.entity.enums;
 
 import lombok.Getter;
 
