@@ -35,6 +35,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void createUser(UserRequestDto dto) {
+        log.info("Пользователь успешно создан!");
         repository.save(userMapper.toEntityRequest(dto));
     }
 

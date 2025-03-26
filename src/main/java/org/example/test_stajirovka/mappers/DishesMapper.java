@@ -11,7 +11,7 @@ public interface DishesMapper {
 
     @Mapping(source = "name", target = "name")
     @Mapping(source = "calories", target = "calories")
-    @Mapping(source = "nutrient_type", target = "nutrient_type")
+    @Mapping(source = "nutrientType", target = "nutrientType")
     Dishes toEntityRequest(DishesRequestDto dto);
 
     DishesResponseDto toDto(Dishes entity);
