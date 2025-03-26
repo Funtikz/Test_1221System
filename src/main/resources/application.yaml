@@ -4,3 +4,21 @@ spring:
     password:
     username: postgres
     url: jdbc:postgresql://localhost:5432/TestStaj
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+logging:
+  level:
+    root: info
+  file:
+    name: logs/app.log
+    path: logs
+  logback:
+    rollingpolicy:
+      max-file-size: 10MB
+      max-history: 10

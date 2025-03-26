@@ -37,8 +37,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(UserRequestDto dto) {
-        repository.save(userMapper.toEntityRequest(dto));
+    public void updateUser(Long id, UserRequestDto dto) {
+        User existingUser = repository.findById(id).orElseThrow(() -> new UserNotFoundException("Пользователь не найден"));
+        existingUser.setFirstname(dto.getFirstname());
+        existingUser.setEmail(dto.getEmail());
+        existingUser.setAge(dto.getAge());
+        existingUser.setWeight(dto.getWeight());
+        existingUser.setHeight(dto.getHeight());
+        existingUser.setGoal(dto.getGoal());
+        repository.save(existingUser);
     }
 
     @Override
