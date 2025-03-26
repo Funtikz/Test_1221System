@@ -1,14 +1,14 @@
-package org.example.test_stajirovka.service;
+package org.example.test_stajirovka.service.api;
 
 import org.example.test_stajirovka.dto.UserRequestDto;
-import org.example.test_stajirovka.dto.UserResponseDto;
+import org.example.test_stajirovka.entity.User;
 
 import java.util.List;
 
 public interface UserService {
-    List<UserResponseDto> findAll();
+    List<User> findAll();
 
-    UserResponseDto findById(Long id);
+    User findById(Long id);
 
     void createUser(UserRequestDto dto);
 

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.test_stajirovka.entity.enums.Gender;
 import org.example.test_stajirovka.entity.enums.Goal;
 
 @Table(name = "users")
@@ -33,6 +34,10 @@ public class User {
 
     @Column(name = "height", nullable = false)
     private Double height;
+
+    @Column(name = "gender", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @Column(name = "goal", nullable = false)
     @Enumerated(EnumType.STRING)

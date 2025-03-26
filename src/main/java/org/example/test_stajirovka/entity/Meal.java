@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.test_stajirovka.entity.enums.MealType;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @Table(name = "meal")
@@ -29,7 +29,7 @@ public class Meal {
     private MealType mealType;
 
     @Column(name = "meal_time", nullable = false)
-    private LocalDateTime mealTime;
+    private LocalDate localDate;
 
     @ManyToMany
     @JoinTable(

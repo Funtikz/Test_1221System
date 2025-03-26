@@ -3,7 +3,8 @@ package org.example.test_stajirovka.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.test_stajirovka.dto.DishesRequestDto;
 import org.example.test_stajirovka.dto.DishesResponseDto;
-import org.example.test_stajirovka.service.DishesService;
+import org.example.test_stajirovka.mappers.DishesMapper;
+import org.example.test_stajirovka.service.api.DishesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,15 +16,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DishesController {
     private final DishesService dishesService;
+    private final DishesMapper dishesMapper;
 
     @GetMapping("get-all")
     public ResponseEntity<List<DishesResponseDto>> findAll(){
-        return new ResponseEntity<>(dishesService.findAll(), HttpStatus.OK);
+        List<DishesResponseDto> list = dishesService.findAll().stream().map(dishesMapper::toDto).toList();
+        return new ResponseEntity<> (list, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
     public ResponseEntity<DishesResponseDto> findById(@PathVariable("id") Long id){
-        return new ResponseEntity<>(dishesService.findById(id), HttpStatus.OK);
+        return new ResponseEntity<>(dishesMapper.toDto(dishesService.findById(id)), HttpStatus.OK);
     }
 
     @PostMapping

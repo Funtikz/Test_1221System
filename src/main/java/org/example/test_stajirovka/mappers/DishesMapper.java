@@ -14,5 +14,6 @@ public interface DishesMapper {
     @Mapping(source = "nutrientType", target = "nutrientType")
     Dishes toEntityRequest(DishesRequestDto dto);
 
+    Dishes toEntity(DishesResponseDto dto);
     DishesResponseDto toDto(Dishes entity);
 }

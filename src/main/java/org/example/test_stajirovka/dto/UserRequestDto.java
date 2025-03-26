@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.test_stajirovka.entity.enums.Gender;
 import org.example.test_stajirovka.entity.enums.Goal;
 
 @Getter
@@ -28,6 +29,10 @@ public class UserRequestDto {
     @NotNull(message = "Вес обязателен")
     @Min(value = 1, message = "Вес должен быть больше 0")
     private Double weight;
+
+    @NotBlank(message = "Гендер не может быть пустой")
+    private Gender gender;
+
 
     @NotNull(message = "Рост обязателен")
     @Min(value = 50, message = "Рост должен быть больше 50 см")

@@ -1,14 +1,14 @@
-package org.example.test_stajirovka.service;
+package org.example.test_stajirovka.service.impl;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.test_stajirovka.dto.DishesRequestDto;
-import org.example.test_stajirovka.dto.DishesResponseDto;
 import org.example.test_stajirovka.entity.Dishes;
 import org.example.test_stajirovka.exceptions.DishesNotFoundException;
 import org.example.test_stajirovka.mappers.DishesMapper;
 import org.example.test_stajirovka.repository.DishesRepository;
+import org.example.test_stajirovka.service.api.DishesService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,19 +16,18 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class DishesServiceImpl implements DishesService{
+public class DishesServiceImpl implements DishesService {
 
     private final DishesRepository dishesRepository;
     private final DishesMapper mapper;
     @Override
-    public List<DishesResponseDto> findAll() {
-        return dishesRepository.findAll().stream().map(mapper::toDto).toList();
+    public List<Dishes> findAll() {
+        return dishesRepository.findAll().stream().toList();
     }
 
     @Override
-    public DishesResponseDto findById(Long id) {
-        Dishes dishes = getById(id);
-        return mapper.toDto(dishes);
+    public Dishes findById(Long id) {
+        return getById(id);
     }
 
     @Override

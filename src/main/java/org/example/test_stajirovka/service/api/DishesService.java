@@ -1,14 +1,14 @@
-package org.example.test_stajirovka.service;
+package org.example.test_stajirovka.service.api;
 
 import org.example.test_stajirovka.dto.DishesRequestDto;
-import org.example.test_stajirovka.dto.DishesResponseDto;
+import org.example.test_stajirovka.entity.Dishes;
 
 import java.util.List;
 
 public interface DishesService {
-    List<DishesResponseDto> findAll();
+    List<Dishes> findAll();
 
-    DishesResponseDto findById(Long id);
+    Dishes findById(Long id);
 
     void createDishes(DishesRequestDto dto);
 

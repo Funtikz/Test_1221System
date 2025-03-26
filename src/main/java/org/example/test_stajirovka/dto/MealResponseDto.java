@@ -13,8 +13,10 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MealRequestDto {
+public class MealResponseDto {
+    private Long id;
+    private Long userId;
     private LocalDate localDate;
     private MealType mealType;
-    private List<Long> dishIds;
+    private List<DishesResponseDto> dishesList;
 }

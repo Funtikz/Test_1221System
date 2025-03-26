@@ -15,7 +15,9 @@ public interface UserMapper {
     @Mapping(source = "weight", target = "weight")
     @Mapping(source = "height", target = "height")
     @Mapping(source = "goal", target = "goal")
+    @Mapping(source = "gender", target = "gender")
     User toEntityRequest(UserRequestDto userRequestDto);
 
+    User toEntity(UserResponseDto dto);
     UserResponseDto toDto(User user);
 }
