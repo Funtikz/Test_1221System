@@ -1,6 +1,7 @@
 package org.example.test_stajirovka.service;
 
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.test_stajirovka.dto.UserRequestDto;
@@ -32,11 +33,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void createUser(UserRequestDto dto) {
         repository.save(userMapper.toEntityRequest(dto));
     }
 
     @Override
+    @Transactional
     public void updateUser(Long id, UserRequestDto dto) {
         User existingUser = repository.findById(id).orElseThrow(() -> new UserNotFoundException("Пользователь не найден"));
         existingUser.setFirstname(dto.getFirstname());
@@ -45,17 +48,21 @@ public class UserServiceImpl implements UserService {
         existingUser.setWeight(dto.getWeight());
         existingUser.setHeight(dto.getHeight());
         existingUser.setGoal(dto.getGoal());
+        log.info("Пользователь с ID: " + id +" успешно обновлен!");
         repository.save(existingUser);
     }
 
+
     @Override
+    @Transactional
     public void deleteUser(Long id) {
+        log.info("Пользователь с ID: " + id +" успешно удален!");
         repository.delete(getById(id));
     }
 
     private User getById(Long id){
         User user = repository.findById(id).orElseThrow(() -> {
-            log.error("Пользователь с ID: " + id + " не найден");
+            log.warn("Пользователь с ID: " + id + " не найден");
             throw new UserNotFoundException("Пользователь с ID: " + id + " не найден");
         });
         return user;
