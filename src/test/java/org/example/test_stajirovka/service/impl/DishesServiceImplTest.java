@@ -8,8 +8,10 @@ import org.example.test_stajirovka.mappers.DishesMapper;
 import org.example.test_stajirovka.repository.DishesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +19,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class)
 class DishesServiceImplTest {
 
     @Mock
@@ -33,7 +36,6 @@ class DishesServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        // Инициализация объектов перед каждым тестом
         dishesRequestDto = new DishesRequestDto();
         dishesRequestDto.setName("Salad");
         dishesRequestDto.setCalories(200.0);
@@ -48,105 +50,83 @@ class DishesServiceImplTest {
 
     @Test
     void findAll() {
-        // Подготовка мока
         when(dishesRepository.findAll()).thenReturn(List.of(dish));
 
-        // Вызов метода
         var result = dishesService.findAll();
 
-        // Проверки
         assertNotNull(result);
         assertEquals(1, result.size());
         assertEquals("Salad", result.get(0).getName());
-        verify(dishesRepository, times(1)).findAll();  // Проверка вызова метода
+        verify(dishesRepository, times(1)).findAll();
     }
 
     @Test
     void findById() {
-        // Подготовка мока
         when(dishesRepository.findById(1L)).thenReturn(Optional.of(dish));
 
-        // Вызов метода
         Dishes result = dishesService.findById(1L);
 
-        // Проверки
         assertNotNull(result);
         assertEquals("Salad", result.getName());
-        verify(dishesRepository, times(1)).findById(1L);  // Проверка вызова метода
+        verify(dishesRepository, times(1)).findById(1L);
     }
 
     @Test
     void findByIdShouldThrowExceptionWhenNotFound() {
-        // Подготовка мока
         when(dishesRepository.findById(1L)).thenReturn(Optional.empty());
 
-        // Проверка исключения
         assertThrows(DishesNotFoundException.class, () -> dishesService.findById(1L));
-        verify(dishesRepository, times(1)).findById(1L);  // Проверка вызова метода
+        verify(dishesRepository, times(1)).findById(1L);
     }
 
     @Test
     void createDishes() {
-        // Подготовка мока
         when(dishesMapper.toEntityRequest(dishesRequestDto)).thenReturn(dish);
 
-        // Вызов метода
         dishesService.createDishes(dishesRequestDto);
 
-        // Проверки
-        verify(dishesRepository, times(1)).save(dish);  // Проверка сохранения
+        verify(dishesRepository, times(1)).save(dish);
     }
 
     @Test
     void updateDishes() {
-        // Подготовка мока
         when(dishesRepository.findById(1L)).thenReturn(Optional.of(dish));
 
-        // Обновление данных
         DishesRequestDto updatedDto = new DishesRequestDto();
         updatedDto.setName("Updated Salad");
         updatedDto.setCalories(250.0);
         updatedDto.setNutrientType(NutrientType.PROTEIN);
 
-        // Вызов метода
         dishesService.updateDishes(1L, updatedDto);
 
-        // Проверки
         assertEquals("Updated Salad", dish.getName());
         assertEquals(250.0, dish.getCalories());
         assertEquals(NutrientType.PROTEIN, dish.getNutrientType());
-        verify(dishesRepository, times(1)).save(dish);  // Проверка сохранения
+        verify(dishesRepository, times(1)).save(dish);
     }
 
     @Test
     void updateDishesShouldThrowExceptionWhenNotFound() {
-        // Подготовка мока
         when(dishesRepository.findById(1L)).thenReturn(Optional.empty());
 
-        // Проверка исключения
         assertThrows(DishesNotFoundException.class, () -> dishesService.updateDishes(1L, dishesRequestDto));
-        verify(dishesRepository, times(1)).findById(1L);  // Проверка вызова метода
+        verify(dishesRepository, times(1)).findById(1L);
     }
 
     @Test
     void deleteDishes() {
-        // Подготовка мока
         when(dishesRepository.findById(1L)).thenReturn(Optional.of(dish));
 
-        // Вызов метода
         dishesService.deleteDishes(1L);
 
-        // Проверки
-        verify(dishesRepository, times(1)).deleteById(1L);  // Проверка удаления
+        verify(dishesRepository, times(1)).deleteById(1L);
     }
 
     @Test
     void deleteDishesShouldThrowExceptionWhenNotFound() {
-        // Подготовка мока
         when(dishesRepository.findById(1L)).thenReturn(Optional.empty());
 
-        // Проверка исключения
         assertThrows(DishesNotFoundException.class, () -> dishesService.deleteDishes(1L));
-        verify(dishesRepository, times(1)).findById(1L);  // Проверка вызова метода
+        verify(dishesRepository, times(1)).findById(1L);
     }
 }
