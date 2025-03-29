@@ -1,5 +1,6 @@
 package org.example.test_stajirovka.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.test_stajirovka.dto.UserRequestDto;
 import org.example.test_stajirovka.dto.UserResponseDto;
@@ -28,14 +29,19 @@ public class UserController {
         return new ResponseEntity<>(userMapper.toDto(userService.findById(id)), HttpStatus.OK);
     }
 
+    @GetMapping("calories/{id}")
+    public ResponseEntity<Double> calorieIntake(@PathVariable("id") Long id){
+        return new ResponseEntity<>(userService.calorieIntake(id), HttpStatus.OK);
+    }
+
     @PostMapping
-    public ResponseEntity<String> createUser(@RequestBody UserRequestDto dto){
+    public ResponseEntity<String> createUser(@Valid @RequestBody UserRequestDto dto){
         userService.createUser(dto);
         return new ResponseEntity<>("Пользователь создан!", HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<String> updateUser(@PathVariable("id") Long id, @RequestBody UserRequestDto dto) {
+    public ResponseEntity<String> updateUser(@PathVariable("id") Long id, @Valid @RequestBody UserRequestDto dto) {
         userService.updateUser(id, dto);
         return new ResponseEntity<>("Пользователь обновлен", HttpStatus.OK);
     }

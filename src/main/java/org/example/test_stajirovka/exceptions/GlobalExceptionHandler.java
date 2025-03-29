@@ -32,4 +32,15 @@ public class GlobalExceptionHandler {
         body.put("path", request.getDescription(false).replace("uri=", ""));
         return new ResponseEntity<>(body, HttpStatus.valueOf(400));
     }
+
+    @ExceptionHandler(MealNotFoundException.class)
+    public ResponseEntity<Map<String , Object>> handleMealNotFoundException(MealNotFoundException ex, WebRequest request){
+        Map<String, Object> body = new HashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", HttpStatus.valueOf(HttpStatus.NOT_FOUND.value()));
+        body.put("message", ex.getMessage());
+        body.put("path", request.getDescription(false).replace("uri=", ""));
+        return new ResponseEntity<>(body, HttpStatus.valueOf(400));
+    }
+
 }

@@ -30,7 +30,7 @@ public class UserRequestDto {
     @Min(value = 1, message = "Вес должен быть больше 0")
     private Double weight;
 
-    @NotBlank(message = "Гендер не может быть пустой")
+    @NotNull(message = "Гендер не может быть пустой")
     private Gender gender;
 
 

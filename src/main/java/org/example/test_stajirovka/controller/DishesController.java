@@ -1,5 +1,6 @@
 package org.example.test_stajirovka.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.test_stajirovka.dto.DishesRequestDto;
 import org.example.test_stajirovka.dto.DishesResponseDto;
@@ -30,14 +31,14 @@ public class DishesController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createDishes(@RequestBody DishesRequestDto dto){
+    public ResponseEntity<String> createDishes(@Valid @RequestBody DishesRequestDto dto){
         dishesService.createDishes(dto);
         return new ResponseEntity<>("Блюдо успешно создано!", HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
     public ResponseEntity<String> updateDishes(@PathVariable("id") Long id,
-                                               @RequestBody DishesRequestDto dto){
+                                               @Valid @RequestBody DishesRequestDto dto){
         dishesService.updateDishes(id, dto);
         return new ResponseEntity<>("Блюдо успешно обновлено", HttpStatus.OK);
     }

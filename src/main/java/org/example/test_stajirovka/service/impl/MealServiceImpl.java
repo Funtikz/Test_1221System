@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.test_stajirovka.dto.MealRequestDto;
 import org.example.test_stajirovka.entity.Dishes;
 import org.example.test_stajirovka.entity.Meal;
-import org.example.test_stajirovka.exceptions.MealNotFound;
+import org.example.test_stajirovka.exceptions.MealNotFoundException;
 import org.example.test_stajirovka.repository.MealRepository;
 import org.example.test_stajirovka.service.api.DishesService;
 import org.example.test_stajirovka.service.api.MealService;
@@ -82,7 +82,7 @@ public class MealServiceImpl implements MealService {
     private Meal findMealById(Long id){
          return mealRepository.findById(id).orElseThrow(() ->{
             log.error("Трапезы с ID:" + id + " не существует!");
-            throw new MealNotFound("Трапезы с ID:" + id + " не существует!");
+            throw new MealNotFoundException("Трапезы с ID:" + id + " не существует!");
         });
     }
 }

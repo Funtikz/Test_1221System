@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.test_stajirovka.dto.UserRequestDto;
 import org.example.test_stajirovka.entity.User;
+import org.example.test_stajirovka.entity.enums.Gender;
 import org.example.test_stajirovka.exceptions.UserNotFoundException;
 import org.example.test_stajirovka.mappers.UserMapper;
 import org.example.test_stajirovka.repository.UserRepository;
@@ -61,6 +62,15 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long id) {
         log.info("Пользователь с ID: " + id +" успешно удален!");
         repository.delete(getById(id));
+    }
+
+    @Override
+    public Double calorieIntake(Long userId) {
+        User user = getById(userId);
+        if (user.getGender().equals(Gender.MALE)){
+            return  66 + 13.7 * user.getWeight() + 5 * user.getHeight() - 6.8 * user.getAge();
+        }
+        return  655 + 9.6 * user.getWeight() + 1.8 * user.getHeight() - 4.7 * user.getAge();
     }
 
     private User getById(Long id){

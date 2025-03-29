@@ -38,4 +38,8 @@ public class Meal {
             inverseJoinColumns = @JoinColumn(name = "dish_id")
     )
     private List<Dishes> dishes;
+
+    public double getTotalCalories() {
+        return dishes.stream().mapToDouble(Dishes::getCalories).sum();
+    }
 }
